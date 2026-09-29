@@ -1,0 +1,110 @@
+{
+  "name": "quote-generator-power",
+  "version": "1.0.0",
+  "description": "Kiro Power for AI-powered quote generation, analysis, and management",
+  "keywords": ["quotes", "ai", "generator", "inspiration", "productivity"],
+  "author": "Your Name",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/quote-generator-power",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/quote-generator-power"
+  },
+  "triggers": [
+    {
+      "keyword": "quote",
+      "description": "Generate and manage inspirational quotes"
+    },
+    {
+      "keyword": "inspiration",
+      "description": "Get inspired with AI-generated quotes"
+    },
+    {
+      "keyword": "daily-quote",
+      "description": "Get today's inspirational quote"
+    }
+  ],
+  "skills": [
+    {
+      "id": "quote-generation",
+      "name": "Quote Generation",
+      "description": "Generate original quotes using AI with customizable categories and styles",
+      "file": "skills/quote-generation.md"
+    },
+    {
+      "id": "quote-analysis",
+      "name": "Quote Analysis",
+      "description": "Analyze quotes for meaning, emotional impact, and category classification",
+      "file": "skills/quote-analysis.md"
+    },
+    {
+      "id": "quote-categorization",
+      "name": "Smart Categorization",
+      "description": "Automatically categorize quotes into motivation, success, wisdom, leadership, etc.",
+      "file": "skills/quote-categorization.md"
+    },
+    {
+      "id": "productivity-tips",
+      "name": "Productivity Tips",
+      "description": "Generate context-aware productivity suggestions based on quote themes",
+      "file": "skills/productivity-tips.md"
+    }
+  ],
+  "steeringFiles": [
+    {
+      "id": "quote-best-practices",
+      "name": "Quote Analysis Best Practices",
+      "description": "Guidelines for effective quote generation and analysis",
+      "file": "steering/quote-best-practices.md"
+    }
+  ],
+  "tools": [
+    {
+      "name": "generateQuote",
+      "description": "Generate an original quote for a given category",
+      "parameters": {
+        "category": "motivation|success|funny|wisdom|leadership|other",
+        "style": "string (optional) - inspirational, humorous, philosophical, etc."
+      }
+    },
+    {
+      "name": "analyzeQuote",
+      "description": "Analyze a quote for meaning and emotional impact",
+      "parameters": {
+        "text": "string - the quote text to analyze",
+        "returnExplanation": "boolean (optional) - include AI explanation"
+      }
+    },
+    {
+      "name": "categorizeQuote",
+      "description": "Auto-categorize a quote into one of the 6 categories",
+      "parameters": {
+        "text": "string - the quote text"
+      }
+    },
+    {
+      "name": "suggestQuote",
+      "description": "Get a quote suggestion based on current context/mood",
+      "parameters": {
+        "context": "string (optional) - current situation or mood",
+        "preferredCategory": "string (optional) - preferred category"
+      }
+    }
+  ],
+  "mcpServers": ["claude-ai"],
+  "config": {
+    "cacheResponses": true,
+    "cacheTTL": 86400,
+    "rateLimit": {
+      "perMinute": 10,
+      "perHour": 100,
+      "perDay": 500
+    },
+    "fallbackBehavior": "use-local-quotes"
+  },
+  "permissions": {
+    "requiresMCP": true,
+    "requiresFileSystem": true,
+    "requiresNetwork": true
+  }
+}

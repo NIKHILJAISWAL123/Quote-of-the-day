@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run Tests After Task Completion",
+      "trigger": "PostTaskExec",
+      "description": "Run property-based tests after spec task completes to verify invariants",
+      "action": {
+        "type": "command",
+        "command": "cd e:\\kiro2 && npm run test -- --testPathPattern=properties --run 2>&1 | tail -20",
+        "timeout": 30
+      }
+    }
+  ]
+}

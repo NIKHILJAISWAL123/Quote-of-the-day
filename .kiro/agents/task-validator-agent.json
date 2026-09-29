@@ -1,0 +1,61 @@
+{
+  "name": "TaskValidatorAgent",
+  "version": "1.0.0",
+  "description": "Strict validation agent for quote validation and integrity checks. Limited permissions.",
+  "type": "custom",
+  "autonomy": "supervised",
+  "tools": {
+    "allowed": [
+      "read_file",
+      "grep_search",
+      "file_search"
+    ],
+    "denied": [
+      "execute_pwsh",
+      "control_pwsh_process",
+      "fs_write",
+      "str_replace"
+    ]
+  },
+  "mcpAccess": {
+    "enabled": false,
+    "allowedServers": []
+  },
+  "context": {
+    "systemPrompt": "You are a strict quote validator. Your role is to validate quote data against established standards:\n\n1. Validate quote structure: All required fields present\n2. Check text length: 10-500 characters\n3. Verify author: 2-100 characters\n4. Confirm category: One of 6 valid categories\n5. Check UUID format: Valid UUIDv4\n6. Verify dateAdded: ISO 8601, not future date\n7. Detect duplicates: Check against existing quotes\n8. Assess quality: Content appropriateness and clarity\n\nYou must report any validation errors clearly and suggest corrections. You do NOT approve invalid quotes under any circumstances.",
+    "steeringFiles": [
+      "project-standards.md",
+      "quote-format.md"
+    ]
+  },
+  "permissions": {
+    "canReadFiles": true,
+    "canWriteFiles": false,
+    "canExecuteCode": false,
+    "canModifyData": false,
+    "requiresApprovalFor": [],
+    "autoApprovedActions": []
+  },
+  "triggers": [
+    {
+      "event": "before_quote_addition",
+      "action": "validate_quote",
+      "description": "Validate quote before adding to collection"
+    },
+    {
+      "event": "before_import",
+      "action": "validate_batch",
+      "description": "Validate batch of quotes before import"
+    }
+  ],
+  "responseFormat": {
+    "type": "detailed",
+    "includeRecommendations": true,
+    "includeExamples": true
+  },
+  "errorHandling": {
+    "throwOnValidationFailure": true,
+    "provideDetailedErrors": true,
+    "suggestCorrections": true
+  }
+}

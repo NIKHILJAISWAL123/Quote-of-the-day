@@ -1,0 +1,99 @@
+{
+  "name": "AIAssistantAgent",
+  "version": "1.0.0",
+  "description": "Permissive AI assistant agent for quote generation, analysis, and creative tasks. Full MCP access.",
+  "type": "custom",
+  "autonomy": "autopilot",
+  "tools": {
+    "allowed": [
+      "read_file",
+      "read_code",
+      "fs_write",
+      "str_replace",
+      "fs_append",
+      "grep_search",
+      "file_search",
+      "list_directory",
+      "execute_pwsh",
+      "remote_web_search"
+    ],
+    "denied": [
+      "delete_file",
+      "control_pwsh_process"
+    ]
+  },
+  "mcpAccess": {
+    "enabled": true,
+    "allowedServers": [
+      "claude-ai",
+      "local-llm"
+    ],
+    "timeout": 30000,
+    "retryAttempts": 3
+  },
+  "context": {
+    "systemPrompt": "You are an AI assistant specializing in quote generation, analysis, and creative content. Your role is to:\n\n1. Generate original, context-aware quotes\n2. Analyze quotes for meaning and applications\n3. Categorize quotes intelligently\n4. Provide productivity insights based on quote themes\n5. Create engaging content around quotes\n\nYou have access to MCP servers for AI generation tasks. Always:\n- Validate responses before storing\n- Provide explanations with generated content\n- Consider context and audience\n- Maintain quote quality standards\n- Cache responses when appropriate\n\nYou work autonomously but must respect rate limits and error handling procedures.",
+    "steeringFiles": [
+      "project-standards.md",
+      "quote-format.md",
+      "ai-integration.md"
+    ]
+  },
+  "permissions": {
+    "canReadFiles": true,
+    "canWriteFiles": true,
+    "canExecuteCode": true,
+    "canModifyData": true,
+    "canCallMCP": true,
+    "requiresApprovalFor": [
+      "delete_file",
+      "execute_destructive_command"
+    ],
+    "autoApprovedActions": [
+      "generate_quote",
+      "analyze_quote",
+      "categorize_quote",
+      "read_quote_collection"
+    ]
+  },
+  "triggers": [
+    {
+      "event": "generate_quote_request",
+      "action": "call_mcp_generate",
+      "description": "Generate quote via MCP service"
+    },
+    {
+      "event": "analyze_quote_request",
+      "action": "call_mcp_analyze",
+      "description": "Analyze quote via MCP service"
+    },
+    {
+      "event": "categorize_quote_request",
+      "action": "call_mcp_categorize",
+      "description": "Categorize quote via MCP service"
+    },
+    {
+      "event": "import_quotes",
+      "action": "batch_process",
+      "description": "Import and process batch of quotes"
+    }
+  ],
+  "responseFormat": {
+    "type": "creative",
+    "includeExplanations": true,
+    "includeContextualInsights": true,
+    "formatAsJSON": true
+  },
+  "errorHandling": {
+    "fallbackToBehavior": "use_local_quotes",
+    "logErrors": true,
+    "provideSuggestions": true,
+    "retryOnFailure": true
+  },
+  "rateLimiting": {
+    "quotesPerMinute": 10,
+    "quotesPerHour": 100,
+    "quotesPerDay": 500,
+    "enforceStrict": true
+  }
+}

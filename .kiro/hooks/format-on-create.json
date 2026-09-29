@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Format New Files",
+      "trigger": "PostFileCreate",
+      "description": "Auto-format new TypeScript files with prettier to maintain consistency",
+      "matcher": "\\.(ts|tsx|json)$",
+      "action": {
+        "type": "command",
+        "command": "cd e:\\kiro2 && npm run format -- $FILE 2>&1 | tail -5",
+        "timeout": 10
+      }
+    }
+  ]
+}

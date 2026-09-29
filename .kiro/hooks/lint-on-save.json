@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Lint TypeScript on Save",
+      "trigger": "PostFileSave",
+      "description": "Run ESLint on TypeScript files when saved to catch issues early",
+      "matcher": "\\.(ts|tsx)$",
+      "action": {
+        "type": "command",
+        "command": "cd e:\\kiro2 && npm run lint -- $FILE 2>&1 | Select-String -Pattern \"error|warning\" || echo \"✓ Lint passed\"",
+        "timeout": 15
+      }
+    }
+  ]
+}
