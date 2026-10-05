@@ -7,6 +7,8 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "ts-node src/app.ts",
+    "server": "node server.js",
+    "server:8080": "node server.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.6",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
     "eslint": "^8.56.0",

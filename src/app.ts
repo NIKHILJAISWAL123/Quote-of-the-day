@@ -5,6 +5,7 @@
 
 import { createQuoteManager } from './quotes';
 import { QuoteValidator } from './validators';
+import { QuoteCategory, IQuote } from './types';
 import chalk from 'chalk';
 
 /**
@@ -21,31 +22,31 @@ async function main(): Promise<void> {
     const validator = new QuoteValidator();
 
     // Initialize with some sample quotes
-    const sampleQuotes = [
+    const sampleQuotes: Array<{ text: string; author: string; category: QuoteCategory }> = [
       {
         text: 'The only way to do great work is to love what you do.',
         author: 'Steve Jobs',
-        category: 'motivation' as const,
+        category: 'motivation',
       },
       {
         text: 'Innovation distinguishes between a leader and a follower.',
         author: 'Steve Jobs',
-        category: 'leadership' as const,
+        category: 'leadership',
       },
       {
         text: 'Success is not final, failure is not fatal.',
         author: 'Winston Churchill',
-        category: 'success' as const,
+        category: 'success',
       },
       {
         text: 'The only constant in life is change.',
         author: 'Heraclitus',
-        category: 'wisdom' as const,
+        category: 'wisdom',
       },
       {
         text: 'Why did the programmer quit his job? Because he did not get arrays.',
         author: 'Unknown Author',
-        category: 'funny' as const,
+        category: 'funny',
       },
     ];
 
@@ -106,10 +107,10 @@ async function main(): Promise<void> {
     const validResult = validator.validateQuote(validQuote);
     console.log(chalk.green(`Valid Quote: ${validResult.isValid ? '✓ PASS' : '✗ FAIL'}`));
 
-    const invalidQuote = {
+    const invalidQuote: Partial<IQuote> = {
       text: 'Too short',
       author: 'Someone',
-      category: 'invalid',
+      category: 'invalid' as any,
     };
 
     const invalidResult = validator.validateQuote(invalidQuote);
